@@ -14,10 +14,6 @@ def driver(request):
 def test_example(driver):
     driver.get("http://google.com/")
     driver.find_element_by_name("q").send_keys('webdriver')
-    driver.find_element_by_name('btnK').click()
+    driver.implicitly_wait(30)
+    driver.find_element_by_name("btnK").click()
     WebDriverWait(driver, 10).until(EC.title_is('webdriver - Google Search'))
-
-
-def test_example_b(driver):
-    driver.get("http://facebook.com/")
-    WebDriverWait(driver, 10).until(EC.title_is('Facebook - Log In or Sign Up'))

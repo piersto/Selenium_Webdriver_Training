@@ -18,4 +18,5 @@ def test_login(driver):
     driver.find_element_by_name("login").click()
     WebDriverWait(driver, 10).until(EC.title_is('My Store'))
     driver.find_element_by_css_selector("li a[href$='appearance&doc=template']").click()
+    driver.find_element_by_xpath("//h1[contains(., 'Template')]")
 

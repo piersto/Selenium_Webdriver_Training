@@ -121,6 +121,195 @@ def test_geo_zones(driver):
     wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Geo Zones')]")))
 
 
+def test_languages(driver):
+    driver.get("http://localhost/litecart/admin/")
+    driver.find_element_by_name("username").send_keys('admin')
+    driver.find_element_by_name("password").send_keys('admin')
+    driver.find_element_by_name("login").click()
+    WebDriverWait(driver, 10).until(EC.title_is('My Store'))
+    driver.find_element_by_css_selector("li a[href$='languages&doc=languages']").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Languages')]")))
+    driver.find_element_by_id("doc-languages").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Languages')]")))
+    driver.find_element_by_id("doc-storage_encoding").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Storage Encoding')]")))
+
+
+def test_modules(driver):
+    driver.get("http://localhost/litecart/admin/")
+    driver.find_element_by_name("username").send_keys('admin')
+    driver.find_element_by_name("password").send_keys('admin')
+    driver.find_element_by_name("login").click()
+    WebDriverWait(driver, 10).until(EC.title_is('My Store'))
+
+    driver.find_element_by_css_selector("li a[href$='modules&doc=jobs']").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Job Modules')]")))
+
+    driver.find_element_by_id("doc-jobs").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Job Modules')]")))
+
+    driver.find_element_by_id("doc-customer").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Customer Modules')]")))
+
+    driver.find_element_by_id("doc-shipping").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Shipping Modules')]")))
+
+    driver.find_element_by_id("doc-payment").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Payment Modules')]")))
+
+    driver.find_element_by_id("doc-order_total").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Order Total Modules')]")))
+
+    driver.find_element_by_id("doc-order_success").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Order Success Modules')]")))
+
+    driver.find_element_by_id("doc-order_action").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Order Action Modules')]")))
+
+
+def test_orders(driver):
+    driver.get("http://localhost/litecart/admin/")
+    driver.find_element_by_name("username").send_keys('admin')
+    driver.find_element_by_name("password").send_keys('admin')
+    driver.find_element_by_name("login").click()
+    WebDriverWait(driver, 10).until(EC.title_is('My Store'))
+
+    driver.find_element_by_css_selector("li a[href$='orders&doc=orders']").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Orders')]")))
+
+    driver.find_element_by_id("doc-orders").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Orders')]")))
+
+    driver.find_element_by_id("doc-order_statuses").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Order Statuses')]")))
+
+
+def test_pages(driver):
+    driver.get("http://localhost/litecart/admin/")
+    driver.find_element_by_name("username").send_keys('admin')
+    driver.find_element_by_name("password").send_keys('admin')
+    driver.find_element_by_name("login").click()
+    WebDriverWait(driver, 10).until(EC.title_is('My Store'))
+
+    driver.find_element_by_css_selector("li a[href$='pages&doc=pages']").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Pages')]")))
+
+
+def test_reports(driver):
+    driver.get("http://localhost/litecart/admin/")
+    driver.find_element_by_name("username").send_keys('admin')
+    driver.find_element_by_name("password").send_keys('admin')
+    driver.find_element_by_name("login").click()
+    WebDriverWait(driver, 10).until(EC.title_is('My Store'))
+
+    driver.find_element_by_css_selector("li a[href$='reports&doc=monthly_sales']").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Monthly Sales')]")))
+
+    driver.find_element_by_id("doc-monthly_sales").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Monthly Sales')]")))
+
+    driver.find_element_by_id("doc-most_sold_products").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Most Sold Products')]")))
+
+    driver.find_element_by_id("doc-most_shopping_customers").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Most Shopping Customers')]")))
+
+
+def test_settings(driver):
+    driver.get("http://localhost/litecart/admin/")
+    driver.find_element_by_name("username").send_keys('admin')
+    driver.find_element_by_name("password").send_keys('admin')
+    driver.find_element_by_name("login").click()
+    WebDriverWait(driver, 10).until(EC.title_is('My Store'))
+
+    driver.find_element_by_css_selector("li a[href$='settings&doc=store_info']").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Settings')]")))
+
+    driver.find_element_by_id("doc-store_info").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Settings')]")))
+
+    driver.find_element_by_id("doc-defaults").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Settings')]")))
+    assert driver.current_url.endswith("settings&doc=defaults")
+
+    driver.find_element_by_id("doc-general").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Settings')]")))
+    assert driver.current_url.endswith("settings&doc=general")
+
+    driver.find_element_by_id("doc-listings").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Settings')]")))
+    assert driver.current_url.endswith("settings&doc=listings")
+
+    driver.find_element_by_id("doc-checkout").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Settings')]")))
+    assert driver.current_url.endswith("settings&doc=checkout")
+
+    driver.find_element_by_id("doc-advanced").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Settings')]")))
+    assert driver.current_url.endswith("settings&doc=advanced")
+
+    driver.find_element_by_id("doc-security").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Settings')]")))
+    assert driver.current_url.endswith("settings&doc=security")
+
+
+def test_slides(driver):
+    driver.get("http://localhost/litecart/admin/")
+    driver.find_element_by_name("username").send_keys('admin')
+    driver.find_element_by_name("password").send_keys('admin')
+    driver.find_element_by_name("login").click()
+    WebDriverWait(driver, 10).until(EC.title_is('My Store'))
+
+    driver.find_element_by_css_selector("li a[href$='slides&doc=slides']").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Slides')]")))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

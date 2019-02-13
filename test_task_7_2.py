@@ -7,7 +7,7 @@ from selenium.webdriver.common.by import By
 
 @pytest.fixture
 def driver(request):
-    wd = webdriver.Chrome()
+    wd = webdriver.Firefox()
     request.addfinalizer(wd.quit)
     return wd
 
@@ -19,7 +19,9 @@ def test_template(driver):
     driver.find_element_by_name("login").click()
     WebDriverWait(driver, 10).until(EC.title_is('My Store'))
     table = driver.find_element_by_id('box-apps-menu')
-    rows = table.find_elements_by_id('app-]')
+    rows = table.find_elements_by_id('app-')
     for row in rows:
-        main_item = row.driver.find_element_by_scc_selectr('span.name').click
+        main_item = row.find_elements_by_css_selector('span.name').click()
+        '''wait = WebDriverWait(driver, 10)  # seconds
+        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "h1")))'''
 

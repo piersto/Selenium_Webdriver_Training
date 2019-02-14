@@ -18,5 +18,3 @@ def test_stiker_presense(driver):
         sticker = driver.find_elements_by_css_selector('div.sticker')
         assert len(products) == len(sticker)
         print(sticker)
-
-

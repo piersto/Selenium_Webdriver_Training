@@ -2,8 +2,6 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-
 
 @pytest.fixture
 def driver(request):
@@ -15,10 +13,10 @@ def driver(request):
 def test_stiker_presense(driver):
     driver.get("http://localhost/litecart/en/")
     WebDriverWait(driver, 10).until(EC.title_is('Online Store | My Store'))
-    elements = driver.find_elements_by_css_selector('div.image-wrapper')
-    sticker = driver.find_elements_by_css_selector('div.sticker')
-    for sticker in elements:
-        sticker = driver.find_element_by_css_selector('div.sticker')
+    products = driver.find_elements_by_css_selector('div.image-wrapper')
+    for sticker in products:
+        sticker = driver.find_elements_by_css_selector('div.sticker')
+        assert len(products) == len(sticker)
         print(sticker)
 
 

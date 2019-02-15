@@ -4,6 +4,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
+
 @pytest.fixture
 def driver(request):
     wd = webdriver.Chrome()
@@ -27,5 +28,6 @@ def test_countries_are_sorted(driver):
     rows = table.find_elements_by_css_selector('tr.row')
     for row in rows:
         cell = row.find_elements_by_css_selector('td')
-        name = cell[4].text
+        name = cell[3].text
+        countries_list.append(name)
     assert countries_list == sorted(countries_list)

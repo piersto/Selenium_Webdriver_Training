@@ -18,6 +18,7 @@ def test_template(driver):
     driver.find_element_by_name("password").send_keys('admin')
     driver.find_element_by_name("login").click()
     WebDriverWait(driver, 10).until(EC.title_is('My Store'))
+
     table = driver.find_element_by_id('box-apps-menu')
     rows = table.find_elements_by_id('app-')
     for row in rows:

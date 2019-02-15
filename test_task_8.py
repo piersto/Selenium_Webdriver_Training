@@ -15,7 +15,7 @@ def test_sticker_presence(driver):
     driver.get("http://localhost/litecart/en/")
     WebDriverWait(driver, 10).until(EC.title_is('Online Store | My Store'))
 
-    products = driver.find_elements_by_css_selector('.image-wrapper')
+    products = driver.find_elements_by_css_selector('.product')
     for sticker in products:
         sticker = driver.find_elements_by_css_selector('.sticker')
         assert len(products) == len(sticker)

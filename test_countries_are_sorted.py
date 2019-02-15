@@ -21,11 +21,11 @@ def test_countries_are_sorted(driver):
     driver.find_element_by_css_selector("li a[href$='countries&doc=countries']").click()
     wait = WebDriverWait(driver, 10)  # seconds
     wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Countries')]")))
-    unsorted_list = []
+
+    countries_list = []
     table = driver.find_element_by_css_selector('tbody')
     rows = table.find_elements_by_css_selector('tr.row')
     for row in rows:
         cell = row.find_elements_by_css_selector('td')
-        code = cell[3].text
         name = cell[4].text
-        print(code + " | " + name)
+    assert countries_list == sorted(countries_list)

@@ -30,12 +30,12 @@ def test_zones_are_sorted(driver):
         wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "h1")))
         time.sleep(2)
 
-        states_list = []
+        zones_list = []
         table = driver.find_element_by_css_selector('#table-zones')
         rows = table.find_elements_by_name('zones')
         for row in rows:
-            cell = row.find_element_by_name('zones')
+            cell = row.find_element_by_css_selector("select[name='zones[1][zone_code]'")
             name = cell[2].get_attribute('innerText')
-            states_list.append(name)
-        assert states_list == sorted(states_list)
+            zones_list.append(name)
+        assert zones_list == sorted(zones_list)
 

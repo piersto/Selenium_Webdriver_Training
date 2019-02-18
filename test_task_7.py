@@ -27,7 +27,7 @@ def test_template(driver):
         wait = WebDriverWait(driver, 10)  # seconds
         wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "h1")))
         time.sleep(2)
-        sub_table = driver.find_element_by_css_selector('ul.docs')
+        sub_table = driver.find_elements_by_css_selector('ul.docs')
         sub_elements = sub_table.find_elements_by_css_selector('li a')
         for sub_element in range(len(sub_elements)):
             sub_elements[sub_element].click()

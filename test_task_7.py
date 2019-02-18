@@ -20,28 +20,19 @@ def test_template(driver):
     driver.find_element_by_name("login").click()
     WebDriverWait(driver, 10).until(EC.title_is('My Store'))
 
-    # таблица, в которой надо искать элементы
-    table = driver.find_element_by_id('box-apps-menu')
-    # элементы, которые будем искать в таблице
-    elements = table.find_elements_by_id("app-")
+    elements = driver.find_elements_by_id("app-")
     for element in range(len(elements)):
         elements[element].click()
         wait = WebDriverWait(driver, 10)  # seconds
         wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "h1")))
         time.sleep(2)
 
-        # таблица, в которой надо искать элементы
-        sub_table = driver.find_element_by_css_selector('ul.docs')
-        # элементы, которые будем искать в таблице
-        sub_elements = sub_table.find_elements_by_css_selector('li a')
+        sub_elements = driver.find_elements_by_css_selector('ul.docs a')
         for sub_element in range(len(sub_elements)):
             sub_elements[sub_element].click()
+            wait = WebDriverWait(driver, 10)  # seconds
+            wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "h1")))
             time.sleep(2)
-            # таблица, в которой надо искать элементы
-            sub_table = driver.find_element_by_css_selector('ul.docs')
-            # элементы, которые будем искать в таблице
-            sub_elements = sub_table.find_elements_by_css_selector('li a')
-        # таблица, в которой надо искать элементы
-        table = driver.find_element_by_id('box-apps-menu')
-        # элементы, которые будем искать в таблице
-        elements = table.find_elements_by_id("app-")
+            sub_elements = driver.find_elements_by_css_selector('ul.docs a')
+
+        elements = driver.find_elements_by_id("app-")

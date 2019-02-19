@@ -50,7 +50,7 @@ def test_read_zones_table(driver):
     rows = table.find_elements_by_css_selector('tr')
     for row in rows:
         cell = row.find_elements_by_css_selector("td:nth-of-type(3) select option[selected]")
-        name = cell.get_attribute('textContent')
+        name = cell[2].get_attribute('textContent')
         zones_list.append(name)
         print(zones_list)
     #assert zones_list == sorted(zones_list)

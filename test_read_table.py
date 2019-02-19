@@ -49,9 +49,8 @@ def test_read_zones_table(driver):
     table = driver.find_element_by_css_selector('#table-zones')
     rows = table.find_elements_by_css_selector('tr')
     for row in rows:
-        cell = row.find_elements_by_css_selector("input[type=hidden]")
-        name = cell[2].text
-        #number = cell[0].text
+        cell = row.find_elements_by_css_selector("td:nth-of-type(3) select option[selected]")
+        name = cell.get_attribute('textContent')
         zones_list.append(name)
         print(zones_list)
     #assert zones_list == sorted(zones_list)

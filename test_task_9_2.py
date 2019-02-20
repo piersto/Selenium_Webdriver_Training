@@ -4,6 +4,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
+from selenium.common.exceptions import NoSuchElementException
+
 
 @pytest.fixture
 def driver(request):
@@ -23,7 +25,7 @@ def test_zones_are_sorted(driver):
     wait = WebDriverWait(driver, 10)  # seconds
     wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Geo Zones')]")))
 
-    elements = driver.find_elements_by_xpath("tr[contains(@class, 'row')]")
+    elements = driver.find_elements_by_css_selector("table.dataTable tr.row td:nth-of-type(5)")
     for element in range(len(elements)):
         elements[element].click()
         wait = WebDriverWait(driver, 10)  # seconds
@@ -31,11 +33,17 @@ def test_zones_are_sorted(driver):
         time.sleep(2)
 
         zones_list = []
-        table = driver.find_element_by_css_selector('#table-zones')
-        rows = table.find_elements_by_name('zones')
-        for row in rows:
-            cell = row.find_element_by_css_selector("select[name='zones[1][zone_code]'")
-            name = cell[2].get_attribute('innerText')
-            zones_list.append(name)
+        for zone in driver.find_elements_by_css_selector(
+                "#table-zones tr td:nth-of-type(3) select option[selected]"):
+            try:
+                name = zone.get_attribute('textContent')
+                zones_list.append(name)
+
+            except NoSuchElementException:
+                pass  # не найден ну и ладно
         assert zones_list == sorted(zones_list)
+        print(zones_list)
+
+        elements = driver.find_elements_by_css_selector("table.dataTable tr.row td:nth-of-type(5)")
+
 

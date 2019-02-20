@@ -4,6 +4,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
+from selenium.common.exceptions import NoSuchElementException
+
 
 
 @pytest.fixture
@@ -49,9 +51,13 @@ def test_read_zones_table(driver):
     table = driver.find_element_by_css_selector('#table-zones')
     rows = table.find_elements_by_css_selector('tr')
     for row in rows:
-        cell = row.find_elements_by_css_selector("td:nth-of-type(3) select option[selected]")
-        name = cell[2].get_attribute('textContent')
-        zones_list.append(name)
+        try:
+            cell = row.find_element_by_css_selector("td:nth-of-type(3) select option[selected]")
+            name = cell.get_attribute('textContent')
+            zones_list.append(name)
+
+        except NoSuchElementException:
+            pass  # не найден ну и ладно
         print(zones_list)
     #assert zones_list == sorted(zones_list)
 

@@ -43,7 +43,7 @@ def test_zones_are_sorted(driver):
                 pass  # не найден ну и ладно
         assert zones_list == sorted(zones_list)
         print(zones_list)
-
+        driver.find_element_by_css_selector("li a[href$='geo_zones&doc=geo_zones']").click()
         elements = driver.find_elements_by_css_selector("table.dataTable tr.row td:nth-of-type(5)")
 
 

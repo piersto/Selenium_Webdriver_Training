@@ -3,9 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-import time
 from selenium.common.exceptions import NoSuchElementException
-
 
 
 @pytest.fixture
@@ -34,7 +32,7 @@ def test_read_countries_table(driver):
         name = cell[4].text
         print(code + " | " + name)
 
-
+'''
 def test_read_zones_table(driver):
     driver.get("http://localhost/litecart/admin/")
     driver.find_element_by_name("username").send_keys('admin')
@@ -59,7 +57,7 @@ def test_read_zones_table(driver):
         except NoSuchElementException:
             pass  # не найден ну и ладно
         print(zones_list)
-    #assert zones_list == sorted(zones_list)
+    assert zones_list == sorted(zones_list)'''
 
 
 def test_read_zones_table_1(driver):
@@ -83,6 +81,6 @@ def test_read_zones_table_1(driver):
         except NoSuchElementException:
             pass  # не найден ну и ладно
     print(zones_list)
-    #assert zones_list == sorted(zones_list)
+    assert zones_list == sorted(zones_list)
 
 

@@ -15,5 +15,5 @@ def test_first_item(driver):
     driver.get("http://localhost/litecart/en/")
     WebDriverWait(driver, 10).until(EC.title_is('Online Store | My Store'))
 
-    driver.find_elements_by_css_selector('.product').click()
+    driver.find_element_by_css_selector('.product').click()
 

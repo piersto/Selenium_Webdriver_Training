@@ -82,7 +82,7 @@ def test_read_zones_table_1(driver):
 
         except NoSuchElementException:
             pass  # не найден ну и ладно
-        print(zones_list)
+    print(zones_list)
     #assert zones_list == sorted(zones_list)
 
 

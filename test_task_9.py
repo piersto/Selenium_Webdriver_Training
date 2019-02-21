@@ -24,14 +24,14 @@ def test_areas_are_sorted(driver):
     wait = WebDriverWait(driver, 10)  # seconds
     wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Countries')]")))
 
-    elements = driver.find_elements_by_css_selector("tr.row td:nth-of-type(5)") and driver.find_element_by_css_selector('aaa')
+    row = driver.find_element_by_css_selector("tr.row td:nth-of-type(6)").get_attribute('textContent') is not (0)
+    elements = row.find_elements_by_css_selector('tr.row td:nth-of-type(5)')
     for element in range(len(elements)):
         elements[element].click()
         wait = WebDriverWait(driver, 10)  # seconds
         wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "h1")))
 
         zones_list = []
-
         assert zones_list == sorted(zones_list)
         print(zones_list)
 

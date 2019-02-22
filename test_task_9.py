@@ -24,18 +24,23 @@ def test_areas_are_sorted(driver):
     wait = WebDriverWait(driver, 10)  # seconds
     wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Countries')]")))
 
-    elements = driver.find_elements_by_css_selector('tr.row td:nth-of-type(5)')
+    #row = driver.find_element_by_xpath("//*[@id='content']/form/table/tbody/tr[2]//td[.='0']")
+    elements = driver.find_elements_by_css_selector('tr.row td:nth-of-type(5) a[href]')
     for element in range(len(elements)):
-        if driver.find_element_by_xpath("//td[.='0']"):
-            pass
-        else:
-            elements[element].click()
-            wait = WebDriverWait(driver, 10)  # seconds
-            wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "h1")))
+        elements[element].click()
+        time.sleep(2)
+        wait = WebDriverWait(driver, 10)  # seconds
+        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "h1")))
+        driver.find_element_by_css_selector("li a[href$='countries&doc=countries']").click()
+        wait = WebDriverWait(driver, 10)  # seconds
+        wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Countries')]")))
+        #row = driver.find_element_by_xpath("//*[@id='content']/form/table/tbody/tr[2]//td[.='0']")
+        elements = driver.find_elements_by_css_selector('tr.row td:nth-of-type(5) a[href]')
 
-        zones_list = []
-        assert zones_list == sorted(zones_list)
-        print(zones_list)
+
+'''zones_list = []
+assert zones_list == sorted(zones_list)
+print(zones_list)'''
 
 
 def test_countries_are_sorted(driver):

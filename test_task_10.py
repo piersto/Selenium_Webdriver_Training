@@ -15,5 +15,10 @@ def test_first_item(driver):
     driver.get("http://localhost/litecart/en/")
     WebDriverWait(driver, 10).until(EC.title_is('Online Store | My Store'))
 
+    name_on_home_page = driver.find_element_by_css_selector('div#box-most-popular div.name').text
     driver.find_element_by_css_selector('.product').click()
+    name_on_product_page = driver.find_element_by_css_selector('div#box-product h1').text
+    assert name_on_home_page == name_on_product_page
+
+
 

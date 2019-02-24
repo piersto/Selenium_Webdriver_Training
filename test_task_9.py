@@ -5,6 +5,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
 
+last_row = 0
+
 
 @pytest.fixture
 def driver(request):
@@ -27,6 +29,43 @@ def test_areas_are_sorted(driver):
     #row = driver.find_element_by_xpath("//*[@id='content']/form/table/tbody/tr[2]//td[.='0']")
     elements = driver.find_elements_by_css_selector('tr.row td:nth-of-type(5) a[href]')
     for element in range(len(elements)):
+        if not driver.find_element_by_xpath("//*[@id='content']/form/table/tbody/tr[2]//td[.='0']"):
+            elements[element].click()
+            time.sleep(2)
+            wait = WebDriverWait(driver, 10)  # seconds
+            wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "h1")))
+            driver.find_element_by_css_selector("li a[href$='countries&doc=countries']").click()
+            wait = WebDriverWait(driver, 10)  # seconds
+            wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Countries')]")))
+            #row = driver.find_element_by_xpath("//*[@id='content']/form/table/tbody/tr[2]//td[.='0']")
+            elements = driver.find_elements_by_css_selector('tr.row td:nth-of-type(5) a[href]')
+
+'''def test_areas_are_sorted(driver):
+    driver.get("http://localhost/litecart/admin/")
+    driver.find_element_by_name("username").send_keys('admin')
+    driver.find_element_by_name("password").send_keys('admin')
+    driver.find_element_by_name("login").click()
+    WebDriverWait(driver, 10).until(EC.title_is('My Store'))
+
+    driver.find_element_by_css_selector("li a[href$='countries&doc=countries']").click()
+    wait = WebDriverWait(driver, 10)  # seconds
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Countries')]")))
+
+    rows = driver.find_elements_by_css_selector("tr.row")
+
+    for row in range (len (rows)):
+        last_row = row
+        tds = rows[row].find_elements_by_tag_name("td")
+        if (tds[5].text != "0"):
+            tds[4].find_element_by_css_selector('a[href]').click()
+            driver.find_element_by_css_selector("li a[href$='countries&doc=countries']").click()
+            row = last_row
+            rows = driver.find_elements_by_css_selector("tr.row")'''
+
+
+'''    #row = driver.find_element_by_xpath("//*[@id='content']/form/table/tbody/tr[2]//td[.='0']")
+    elements = driver.find_elements_by_css_selector('tr.row td:nth-of-type(5) a[href]')
+    for element in range(len(elements)):
         elements[element].click()
         time.sleep(2)
         wait = WebDriverWait(driver, 10)  # seconds
@@ -35,7 +74,7 @@ def test_areas_are_sorted(driver):
         wait = WebDriverWait(driver, 10)  # seconds
         wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Countries')]")))
         #row = driver.find_element_by_xpath("//*[@id='content']/form/table/tbody/tr[2]//td[.='0']")
-        elements = driver.find_elements_by_css_selector('tr.row td:nth-of-type(5) a[href]')
+        elements = driver.find_elements_by_css_selector('tr.row td:nth-of-type(5) a[href]')'''
 
 
 '''zones_list = []

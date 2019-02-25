@@ -17,8 +17,8 @@ def test_first_item_name(driver):
     driver.get("http://localhost/litecart/en/")
     WebDriverWait(driver, 10).until(EC.title_is('Online Store | My Store'))
 
-    name_on_home_page = driver.find_element_by_css_selector('div#box-most-popular div.name').text
-    driver.find_element_by_css_selector('.product').click()
+    name_on_home_page = driver.find_element_by_css_selector('div#box-campaigns div.name').text
+    driver.find_element_by_css_selector('div#box-campaigns .product').click()
     name_on_product_page = driver.find_element_by_css_selector('div#box-product h1').text
     assert name_on_home_page == name_on_product_page
 
@@ -73,24 +73,11 @@ def test_campaign_price_color(driver):
     campaign_price_color_blue = ' 0'
     campaign_price_color_on_home_page = driver.find_element_by_css_selector('div.price-wrapper strong.campaign-price').value_of_css_property("color")
     print(campaign_price_color_on_home_page)
-    '''array_campaign_price_color_on_home_page = campaign_price_color_on_home_page.split(',')
-    assert array_campaign_price_color_on_home_page[1] == campaign_price_color_green
-    assert array_campaign_price_color_on_home_page[2] == campaign_price_color_blue'''
-
-
-def test_removed_price_color(driver):
-    driver.get("http://localhost/litecart/en/")
-    WebDriverWait(driver, 10).until(EC.title_is('Online Store | My Store'))
-
-    campaign_price_color_green = ' 0'
-    campaign_price_color_blue = ' 0'
-    campaign_price_color_on_home_page = driver.find_element_by_css_selector(
-        'div.price-wrapper strong.campaign-price').value_of_css_property("color")
-
     array_campaign_price_color_on_home_page = campaign_price_color_on_home_page.split(',')
     assert array_campaign_price_color_on_home_page[1] == campaign_price_color_green
     assert array_campaign_price_color_on_home_page[2] == campaign_price_color_blue
 
 
-
-
+def test_removed_price_color(driver):
+    driver.get("http://localhost/litecart/en/")
+    WebDriverWait(driver, 10).until(EC.title_is('Online Store | My Store'))

@@ -8,7 +8,7 @@ import time
 
 @pytest.fixture
 def driver(request):
-    wd = webdriver.Firefox()
+    wd = webdriver.Chrome()
     request.addfinalizer(wd.quit)
     return wd
 
@@ -23,27 +23,26 @@ def test_first_item_name(driver):
     assert name_on_home_page == name_on_product_page
 
 
-def test_first_price(driver):
+def test_campaign_price(driver):
     driver.get("http://localhost/litecart/en/")
     WebDriverWait(driver, 10).until(EC.title_is('Online Store | My Store'))
 
-    try:
-        price_on_home_page = driver.find_element_by_css_selector('div.price-wrapper span.price').text
-    except NoSuchElementException:
-        pass  # не найден ну и ладно
-
-    campaign_price_on_home_page = driver.find_element_by_css_selector('div.price-wrapper strong.campaign-price').text
-
+    campaign_price_on_home_page = driver.find_element_by_css_selector('div#box-campaigns strong.campaign-price').text
     driver.find_element_by_css_selector('.product').click()
 
-    try:
-        price_on_product_page = driver.find_element_by_css_selector('div.price-wrapper span.price').text
-    except NoSuchElementException:
-        pass  # не найден ну и ладно
-
     campaign_price_on_product_page = driver.find_element_by_css_selector('div.price-wrapper strong.campaign-price').text
-    assert price_on_home_page == price_on_product_page
     assert campaign_price_on_home_page == campaign_price_on_product_page
+
+
+def test_regular_price(driver):
+    driver.get("http://localhost/litecart/en/")
+    WebDriverWait(driver, 10).until(EC.title_is('Online Store | My Store'))
+
+    price_on_home_page = driver.find_element_by_css_selector('div#box-campaigns s.regular-price').text
+    driver.find_element_by_css_selector('div#box-campaigns .product').click()
+
+    price_on_product_page = driver.find_element_by_css_selector('div.price-wrapper s.regular-price').text
+    assert price_on_home_page == price_on_product_page
 
 
 '''def test_price_color(driver):

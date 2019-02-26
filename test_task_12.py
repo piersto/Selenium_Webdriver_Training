@@ -23,3 +23,8 @@ def test_item(driver):
     driver.find_element_by_css_selector("li a[href$='/?app=catalog&doc=catalog']").click()
     wait = WebDriverWait(driver, 10)  # seconds
     wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Catalog')]")))
+
+    driver.find_element_by_css_selector("a[href$='catalog&doc=edit_product']").click()
+
+
+

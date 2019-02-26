@@ -5,7 +5,6 @@ from selenium.webdriver.support import expected_conditions as EC
 import string
 import random
 from selenium.webdriver.support.select import Select
-import time
 
 
 @pytest.fixture
@@ -29,7 +28,6 @@ def test_create_account(driver):
 
     driver.find_element_by_css_selector("td a[href$='create_account']").click()
     email = test_data
-
 
     #First Name
     driver.find_element_by_name('firstname').send_keys('First_name')

@@ -7,7 +7,6 @@ import time
 from selenium.webdriver.support.select import Select
 
 
-
 @pytest.fixture
 def driver(request):
     wd = webdriver.Chrome()

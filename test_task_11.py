@@ -6,6 +6,7 @@ from selenium.common.exceptions import NoSuchElementException
 import time
 import string
 import random
+from selenium.webdriver.support.select import Select
 
 
 def random_string():
@@ -28,7 +29,6 @@ def test_create_account(driver):
     driver.find_element_by_css_selector("td a[href$='create_account']").click()
     #First Name
     driver.find_element_by_name('firstname').send_keys('First_name')
-    time.sleep(5)
     #Last Name
     driver.find_element_by_name('lastname').send_keys('Last_name')
     #Address 1
@@ -38,9 +38,11 @@ def test_create_account(driver):
     #City
     driver.find_element_by_name('city').send_keys('New-York')
     #Country
-
+    Select(driver.find_element_by_css_selector('span.select2-selection__arrow')).select_by_visible_text('United States')
+    time.sleep(6)
+    driver.find_element_by_id('select2-country_code-hv-container')
     #Zone/State/Province
-
+    time.sleep(5)
     #Email
 
     #Phone

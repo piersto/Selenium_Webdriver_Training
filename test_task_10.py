@@ -10,7 +10,7 @@ from selenium.webdriver.support.color import Color
 
 @pytest.fixture
 def driver(request):
-    wd = webdriver.Firefox()
+    wd = webdriver.Chrome()
     request.addfinalizer(wd.quit)
     return wd
 
@@ -51,17 +51,13 @@ def test_campaign_price_color(driver):
     driver.get("http://localhost/litecart/en/")
     WebDriverWait(driver, 10).until(EC.title_is('Online Store | My Store'))
 
-    price_color_on_home_page = driver.find_element_by_css_selector('div#box-campaigns strong.campaign-price').value_of_css_property("color")
-    print(Color.from_string(price_color_on_home_page).hex)
-    print(price_color_on_home_page)
-
-    '''blue_color_from_price = Color.from_string('blue').rgba
-    green_color_from_price = Color.from_string('green').rgba
-    blue = 0
-    green = 0
-    print(blue_color_from_price)
-    assert blue_color_from_price == blue
-    assert green_color_from_price == green'''''
+    get_color = driver.find_element_by_css_selector('div#box-campaigns strong.campaign-price').value_of_css_property("color")
+    green_color_on_product_page = Color.from_string(get_color).hex[3:5]
+    blue_color_on_product_page = Color.from_string(get_color).hex[5:7]
+    green = '00'
+    blue = '00'
+    assert green_color_on_product_page == green
+    assert blue_color_on_product_page == blue
 
 
 def test_price_color(driver):

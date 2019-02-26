@@ -106,9 +106,25 @@ def test_campaign_price_bigger_than_price_on_home_page(driver):
 
     campaign_price_on_home_page = driver.find_element_by_css_selector('div#box-campaigns strong.campaign-price').text[1:]
     price_on_home_page = driver.find_element_by_css_selector('div#box-campaigns s.regular-price').text[1:]
-    print(campaign_price_on_home_page)
-    print(price_on_home_page)
     assert float(campaign_price_on_home_page) < float(price_on_home_page)
+
+
+def test_campaign_price_bigger_than_price_on_product_page(driver):
+    driver.get("http://localhost/litecart/en/")
+    WebDriverWait(driver, 10).until(EC.title_is('Online Store | My Store'))
+
+    driver.find_element_by_css_selector('div#box-campaigns .product').click()
+
+    campaign_price_on_product_page = driver.find_element_by_css_selector('div.price-wrapper strong.campaign-price').text[1:]
+    price_on_product_page = driver.find_element_by_css_selector('div.price-wrapper s.regular-price').text[1:]
+    assert float(campaign_price_on_product_page) < float(price_on_product_page)
+
+
+
+
+
+
+
 
 
 

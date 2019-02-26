@@ -16,15 +16,39 @@ def random_string():
 
 @pytest.fixture
 def driver(request):
-    wd = webdriver.Firefox()
+    wd = webdriver.Chrome()
     request.addfinalizer(wd.quit)
     return wd
 
 
-def test_first_item_name(driver):
+def test_create_account(driver):
     driver.get("http://localhost/litecart/en/")
     WebDriverWait(driver, 10).until(EC.title_is('Online Store | My Store'))
 
     driver.find_element_by_css_selector("td a[href$='create_account']").click()
+    #First Name
+    driver.find_element_by_name('firstname').send_keys('First_name')
+    time.sleep(5)
+    #Last Name
+    driver.find_element_by_name('lastname').send_keys('Last_name')
+    #Address 1
+    driver.find_element_by_name('address1').send_keys('Address 1')
+    #Postcode
+    driver.find_element_by_name('postcode').send_keys('12345')
+    #City
+    driver.find_element_by_name('city').send_keys('New-York')
+    #Country
+
+    #Zone/State/Province
+
+    #Email
+
+    #Phone
+    driver.find_element_by_name('phone').send_keys('1234567890')
+    #Desired Password
+    driver.find_element_by_name('password').send_keys('admin')
+    #Confirm Password
+    driver.find_element_by_name('confirmed_password').send_keys('1234567890')
+
 
     time.sleep(5)

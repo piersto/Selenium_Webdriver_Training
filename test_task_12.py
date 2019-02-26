@@ -35,6 +35,8 @@ def test_item(driver):
 
     Select(driver.find_element_by_css_selector('select[name="manufacturer_id"]')).select_by_visible_text('ACME Corp.')
 
+    driver.find_element_by_css_selector('div.trumbowyg-editor').send_keys('bla bla bla')
+
 
 
 

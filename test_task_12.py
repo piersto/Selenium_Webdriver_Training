@@ -37,6 +37,13 @@ def test_item(driver):
 
     driver.find_element_by_css_selector('div.trumbowyg-editor').send_keys('bla bla bla')
 
+    driver.find_element_by_css_selector('a[href="#tab-prices"]').click()
+    time.sleep(1)
+
+    driver.find_element_by_css_selector('input[name="purchase_price"]').clear()
+    driver.find_element_by_css_selector('input[name="purchase_price"]').send_keys('10')
+    time.sleep(5)
+
 
 
 

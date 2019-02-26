@@ -49,12 +49,12 @@ def test_campaign_price_color_on_home_page(driver):
     WebDriverWait(driver, 10).until(EC.title_is('Online Store | My Store'))
 
     get_color = driver.find_element_by_css_selector('div#box-campaigns strong.campaign-price').value_of_css_property("color")
-    green_color_on_product_page = Color.from_string(get_color).hex[3:5]
-    blue_color_on_product_page = Color.from_string(get_color).hex[5:7]
+    green_color_on_home_page = Color.from_string(get_color).hex[3:5]
+    blue_color_on_home_page = Color.from_string(get_color).hex[5:7]
     green = '00'
     blue = '00'
-    assert green_color_on_product_page == green
-    assert blue_color_on_product_page == blue
+    assert green_color_on_home_page == green
+    assert blue_color_on_home_page == blue
 
 
 def test_price_color_on_home_page(driver):
@@ -62,12 +62,12 @@ def test_price_color_on_home_page(driver):
     WebDriverWait(driver, 10).until(EC.title_is('Online Store | My Store'))
 
     get_color = driver.find_element_by_css_selector('div#box-campaigns s.regular-price').value_of_css_property("color")
-    red_color_on_product_page = Color.from_string(get_color).hex[1:3]
-    green_color_on_product_page = Color.from_string(get_color).hex[3:5]
-    blue_color_on_product_page = Color.from_string(get_color).hex[5:7]
-    assert green_color_on_product_page == red_color_on_product_page
-    assert blue_color_on_product_page == red_color_on_product_page
-    assert green_color_on_product_page == blue_color_on_product_page
+    red_color_on_home_page = Color.from_string(get_color).hex[1:3]
+    green_color_on_home_page = Color.from_string(get_color).hex[3:5]
+    blue_color_on_home_page = Color.from_string(get_color).hex[5:7]
+    assert green_color_on_home_page == red_color_on_home_page
+    assert blue_color_on_home_page == red_color_on_home_page
+    assert green_color_on_home_page == blue_color_on_home_page
 
 
 def test_campaign_price_color_on_product_page(driver):
@@ -98,6 +98,18 @@ def test_price_color_on_product_page(driver):
     assert green_color_on_product_page == red_color_on_product_page
     assert blue_color_on_product_page == red_color_on_product_page
     assert green_color_on_product_page == blue_color_on_product_page
+
+
+def test_campaign_price_bigger_than_price_on_home_page(driver):
+    driver.get("http://localhost/litecart/en/")
+    WebDriverWait(driver, 10).until(EC.title_is('Online Store | My Store'))
+
+    campaign_price_on_home_page = driver.find_element_by_css_selector('div#box-campaigns strong.campaign-price').text[1:]
+    price_on_home_page = driver.find_element_by_css_selector('div#box-campaigns s.regular-price').text[1:]
+    print(campaign_price_on_home_page)
+    print(price_on_home_page)
+    assert float(campaign_price_on_home_page) < float(price_on_home_page)
+
 
 
 

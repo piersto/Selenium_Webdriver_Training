@@ -28,6 +28,7 @@ def test_item(driver):
     driver.find_element_by_css_selector("a[href$='catalog&doc=edit_product']").click()
 
     driver.find_element_by_css_selector('input[name="name[en]"]').send_keys("Super Product")
+    driver.find_element_by_css_selector('input[name="new_images[]"]')
 
     driver.find_element_by_css_selector("a[href='#tab-information']").click()
     time.sleep(1)

@@ -4,6 +4,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
+from selenium.webdriver.support.select import Select
+
 
 
 @pytest.fixture
@@ -25,6 +27,15 @@ def test_item(driver):
     wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Catalog')]")))
 
     driver.find_element_by_css_selector("a[href$='catalog&doc=edit_product']").click()
+
+    driver.find_element_by_css_selector('input[name="name[en]"]').send_keys("Super Product")
+
+    driver.find_element_by_css_selector("a[href='#tab-information']").click()
+    time.sleep(1)
+
+    Select(driver.find_element_by_css_selector('select[name="manufacturer_id"]')).select_by_visible_text('ACME Corp.')
+
+
 
 
 

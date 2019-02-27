@@ -5,6 +5,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
 from selenium.webdriver.support.select import Select
+import os.path
+import random
+import string
 
 
 @pytest.fixture
@@ -12,6 +15,11 @@ def driver(request):
     wd = webdriver.Chrome()
     request.addfinalizer(wd.quit)
     return wd
+
+
+def random_string():
+    symbols = string.ascii_lowercase + string.digits
+    return ''.join([random.choice(symbols) for i in range(1, 7)])
 
 
 def test_item(driver):
@@ -26,9 +34,14 @@ def test_item(driver):
     wait.until(EC.presence_of_element_located((By.XPATH, "//h1[contains(., 'Catalog')]")))
 
     driver.find_element_by_css_selector("a[href$='catalog&doc=edit_product']").click()
+    driver.find_element_by_css_selector('input[value="1"]').click()
 
-    driver.find_element_by_css_selector('input[name="name[en]"]').send_keys("Super Product")
-    driver.find_element_by_css_selector('input[name="new_images[]"]').click()
+    test_data = 'Product name ' + random_string()
+    product_name = test_data
+
+    driver.find_element_by_css_selector('input[name="name[en]"]').send_keys(product_name)
+    driver.find_element_by_css_selector('input[name="new_images[]"]').send_keys(os.getcwd() + "/picture.png")
+    time.sleep(5)
 
     driver.find_element_by_css_selector("a[href='#tab-information']").click()
     time.sleep(1)
@@ -42,6 +55,12 @@ def test_item(driver):
 
     driver.find_element_by_css_selector('input[name="purchase_price"]').clear()
     driver.find_element_by_css_selector('input[name="purchase_price"]').send_keys('10')
+
+    driver.find_element_by_css_selector('button[name=save]')
+
+    driver.find_element_by_css_selector(product_name).click()
+
+
     time.sleep(5)
 
 

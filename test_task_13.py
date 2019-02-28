@@ -20,11 +20,15 @@ def driver(request):
     return wd
 
 
-def test_campaign_price_color_on_product_page(driver):
+def test_add_product(driver):
     driver.get("http://localhost/litecart/en/")
     WebDriverWait(driver, 10).until(EC.title_is('Online Store | My Store'))
 
     driver.find_element_by_css_selector('div#box-most-popular .product').click()
+
+    driver.presence_of_element_located("[name='options[Size]']")
+
+    Select(driver.find_element_by_name("options[Size]")).select_by_visible_text("Small")
 
 
     driver.find_element_by_name('add_cart_product').click()

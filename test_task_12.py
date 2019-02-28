@@ -3,7 +3,6 @@ from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-import time
 from selenium.webdriver.support.select import Select
 import os.path
 import random
@@ -40,37 +39,29 @@ def test_item(driver):
     product_name = test_data
 
     driver.find_element_by_css_selector('input[name="name[en]"]').send_keys(product_name)
-    #driver.find_element_by_css_selector('input[name="new_images[]"]').send_keys(os.getcwd() + "/picture.png")
-    time.sleep(5)
+    driver.find_element_by_css_selector('input[name="new_images[]"]').send_keys(os.getcwd() + "/picture.png")
 
     driver.find_element_by_css_selector("a[href='#tab-information']").click()
-    time.sleep(1)
 
     Select(driver.find_element_by_css_selector('select[name="manufacturer_id"]')).select_by_visible_text('ACME Corp.')
 
     driver.find_element_by_css_selector('div.trumbowyg-editor').send_keys('bla bla bla')
 
     driver.find_element_by_css_selector('a[href="#tab-prices"]').click()
-    time.sleep(1)
 
     driver.find_element_by_css_selector('input[name="purchase_price"]').clear()
     driver.find_element_by_css_selector('input[name="purchase_price"]').send_keys('10')
 
     driver.find_element_by_css_selector('button[name=save]').click()
 
-    table = driver.find_element_by_css_selector('table.dataTable')
-    rows = table.find_elements_by_css_selector('tr.row')
-    new_list = []
-    for row in rows:
-        cells = row.find_element_by_css_selector('td a[href]')
-        name = cells[2].text
-        new_list.append(name)
-    print(new_list)
+    product_list = []
+    for element in driver.find_elements_by_css_selector('tr.row td a[href]'):
+        name = element.text
+        product_list.append(name)
+    assert product_name in product_list
+    print(product_list)
+    print(product_name)
 
-
-
-
-    time.sleep(5)
 
 
 

@@ -40,7 +40,7 @@ def test_item(driver):
     product_name = test_data
 
     driver.find_element_by_css_selector('input[name="name[en]"]').send_keys(product_name)
-    driver.find_element_by_css_selector('input[name="new_images[]"]').send_keys(os.getcwd() + "/picture.png")
+    #driver.find_element_by_css_selector('input[name="new_images[]"]').send_keys(os.getcwd() + "/picture.png")
     time.sleep(5)
 
     driver.find_element_by_css_selector("a[href='#tab-information']").click()
@@ -56,9 +56,18 @@ def test_item(driver):
     driver.find_element_by_css_selector('input[name="purchase_price"]').clear()
     driver.find_element_by_css_selector('input[name="purchase_price"]').send_keys('10')
 
-    driver.find_element_by_css_selector('button[name=save]')
+    driver.find_element_by_css_selector('button[name=save]').click()
 
-    driver.find_element_by_css_selector(product_name).click()
+    table = driver.find_element_by_css_selector('table.dataTable')
+    rows = table.find_elements_by_css_selector('tr.row')
+    new_list = []
+    for row in rows:
+        cells = row.find_element_by_css_selector('td a[href]')
+        name = cells[2].text
+        new_list.append(name)
+    print(new_list)
+
+
 
 
     time.sleep(5)

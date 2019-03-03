@@ -24,16 +24,38 @@ def test_add_product(driver):
     driver.get("http://localhost/litecart/en/")
     WebDriverWait(driver, 10).until(EC.title_is('Online Store | My Store'))
 
+    add_element_to_the_basket(driver)
+    time.sleep(2)
+
+    # Go back to Home page
+    driver.find_element_by_css_selector("li a[href$='/litecart/en/']")
+
+    add_element_to_the_basket(driver)
+    time.sleep(2)
+
+    # Go back to Home page
+    driver.find_element_by_css_selector("li a[href$='/litecart/en/']")
+
+    add_element_to_the_basket(driver)
+    time.sleep(2)
+
+# Go back to Home page
+    driver.find_element_by_css_selector("li a[href$='/litecart/en/']")
+
+def add_element_to_the_basket(driver):
+    driver.get("http://localhost/litecart/en/")
     driver.find_element_by_css_selector('div#box-most-popular .product').click()
+    quantity_start = driver.find_element_by_css_selector('span.quantity').text
+    # Find out if element present
+    if len(driver.find_elements_by_css_selector("[name='options[Size]']")) > 0:
+        # If element is present, select 'Small' from drop-down menu
+        Select(driver.find_element_by_name("options[Size]")).select_by_visible_text("Small")
+    else:
+        # If not present Click on 'Add to cart' button
+        driver.find_element_by_name('add_cart_product').click()
+        time.sleep(2)
 
-    driver.presence_of_element_located("[name='options[Size]']")
+    # Go back to Home page
+    driver.find_element_by_css_selector("li a[href$='/litecart/en/']")
 
-    Select(driver.find_element_by_name("options[Size]")).select_by_visible_text("Small")
 
-
-    driver.find_element_by_name('add_cart_product').click()
-    wait = WebDriverWait(driver, 10)  # seconds
-    # обратите внимание, что локатор передается как tuple!
-    element = wait.until(EC.presence_of_element_located((By.XPATH, "//div[@id='cart']//span[@class='quantity'][.='1']")))
-
-    time.sleep(10)

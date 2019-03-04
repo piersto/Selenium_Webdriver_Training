@@ -45,14 +45,14 @@ def test_add_product(driver):
     # Go to the basket
     driver.find_element_by_css_selector("a[href$='/en/checkout']").click()
 
-    button_remove = wait.until(EC.presence_of_element_located((By.NAME, "remove_cart_item")))
-    button_remove.click()
+    for buttons in driver.find_elements_by_css_selector("[name='remove_cart_item']"):
+        button_remove = wait.until(EC.visibility_of_element_located((By.NAME, "remove_cart_item")))
+        button_remove.click()
+        driver.find_elements_by_css_selector("[name='remove_cart_item']")
 
-    button_remove = wait.until(EC.presence_of_element_located((By.NAME, "remove_cart_item")))
-    button_remove.click()
-    
-    button_remove = wait.until(EC.presence_of_element_located((By.NAME, "remove_cart_item")))
-    button_remove.click()
+    # Go back to Home page
+    driver.find_element_by_css_selector("li a[href$='/litecart/en/']").click()
+    time.sleep(7)
 
 
 def add_element_to_the_basket(driver):

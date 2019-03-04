@@ -40,12 +40,18 @@ def test_add_product(driver):
     time.sleep(2)
 
 # Go back to Home page
-    driver.find_element_by_css_selector("li a[href$='/litecart/en/']")
+    #driver.find_element_by_css_selector("li a[href$='/litecart/en/']").click()
+
+    driver.find_element_by_css_selector("a[href$='/en/checkout']").click()
+
 
 def add_element_to_the_basket(driver):
     driver.get("http://localhost/litecart/en/")
+
     driver.find_element_by_css_selector('div#box-most-popular .product').click()
-    quantity_start = driver.find_element_by_css_selector('span.quantity').text
+
+    quantity_start = driver.find_element_by_css_selector('span.quantity').text #0
+
     # Find out if element present
     if len(driver.find_elements_by_css_selector("[name='options[Size]']")) > 0:
         # If element is present, select 'Small' from drop-down menu
@@ -55,7 +61,11 @@ def add_element_to_the_basket(driver):
         driver.find_element_by_name('add_cart_product').click()
         time.sleep(2)
 
+    wait = WebDriverWait(driver, 10)  # seconds
+    # обратите внимание, что локатор передается как tuple!
+    element = wait.until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, "span.quantity")))
+
     # Go back to Home page
-    driver.find_element_by_css_selector("li a[href$='/litecart/en/']")
+    driver.find_element_by_css_selector("li a[href$='/litecart/en/']").click()
 
 

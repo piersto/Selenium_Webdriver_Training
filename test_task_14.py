@@ -25,18 +25,20 @@ def test_links_are_open_in_new_window(driver):
 
     driver.find_element_by_css_selector("a[href$='country_code=CA']").click()
 
+    # запоминаем идентификатор текущего окна
     main_window = driver.current_window_handle
+    # запоминаем идентификаторы уже открытых окон
     old_windows = driver.window_handles
-    # открывает новое окно
+    # кликаем кнопку, которая открывает новое окно
     driver.find_element_by_css_selector("a[href='http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2']").click()
-    # ожидание появления нового окна,
-    # идентификатор которого отсутствует в списке oldWindows,
-    # остаётся в качестве самостоятельного упражнения
-    #new_window = wait.until(there_is_window_other_than(old_windows))
-    driver.switch_to_window(new_window)
-    # ...
+    # ждем появления нового окна, с новым идентификатором
+    new_window = wait.until(there_is_window_other_than(old_windows))
+    # переключаемся в новое окно
+    driver.switch_to.window(new_window)
+    # закрываем его
     driver.close()
-    driver.switch_to_window(main_window)
+    # и возвращаемся в исходное окно
+    driver.switch_to.window(main_window)
 
     time.sleep(3)
 

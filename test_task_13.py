@@ -28,7 +28,7 @@ def test_add_product(driver):
     driver.find_element_by_css_selector("a[href$='/en/checkout']").click()
 
     buttons = driver.find_elements_by_css_selector("[name='remove_cart_item']")
-    for button in buttons:
+    for button in range(len(buttons)):
         if len(driver.find_elements_by_css_selector("td.item")) > 0:
             wait = WebDriverWait(driver, 10)  # seconds
             button = wait.until(EC.visibility_of_element_located((By.NAME, "remove_cart_item")))
@@ -37,7 +37,7 @@ def test_add_product(driver):
 
     # Go back to Home page
     driver.find_element_by_css_selector("li a[href$='/litecart/en/']").click()
-    time.sleep(7)
+    time.sleep(3)
 
 
 def add_element_to_the_basket(driver):

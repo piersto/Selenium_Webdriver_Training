@@ -18,28 +18,34 @@ def test_add_product(driver):
     driver.get("http://localhost/litecart/en/")
     WebDriverWait(driver, 10).until(EC.title_is('Online Store | My Store'))
 
-    add_element_to_the_basket(driver)
+    add_item_to_the_basket(driver)
 
-    add_element_to_the_basket(driver)
+    add_item_to_the_basket(driver)
 
-    add_element_to_the_basket(driver)
+    add_item_to_the_basket(driver)
 
     # Go to the basket
     driver.find_element_by_css_selector("a[href$='/en/checkout']").click()
 
     buttons = driver.find_elements_by_css_selector("[name='remove_cart_item']")
+
     for i in range(len(buttons)):
+        len_old_list = len(driver.find_elements_by_css_selector("tr td.item"))
+
         wait = WebDriverWait(driver, 10)  # seconds
         button = wait.until(EC.visibility_of_element_located((By.NAME, "remove_cart_item")))
         button.click()
+
+        wait.until(lambda driver: len(driver.find_elements_by_css_selector("tr td.item")) < len_old_list)
+
         driver.find_elements_by_css_selector("[name='remove_cart_item']")
 
     # Go back to Home page
     driver.find_element_by_css_selector("li a[href$='/litecart/en/']").click()
-    time.sleep(3)
+    time.sleep(2)
 
 
-def add_element_to_the_basket(driver):
+def add_item_to_the_basket(driver):
     driver.find_element_by_css_selector('div#box-most-popular .product').click()
 
     quantity_start = driver.find_element_by_css_selector('span.quantity').text
@@ -56,5 +62,3 @@ def add_element_to_the_basket(driver):
 
     # Go back to Home page
     driver.find_element_by_css_selector("li a[href$='/litecart/en/']").click()
-
-# if len(driver.find_elements_by_css_selector("td.item")) > 0:

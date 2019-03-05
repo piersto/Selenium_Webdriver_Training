@@ -51,7 +51,6 @@ def add_element_to_the_basket(driver):
     else:
         # If not present Click on 'Add to cart' button
         driver.find_element_by_name('add_cart_product').click()
-        time.sleep(2)
     wait = WebDriverWait(driver, 10)  # seconds
     wait.until(lambda d: d.find_element_by_css_selector('span.quantity').text != quantity_start)
 

@@ -42,3 +42,6 @@ def test_links_are_open_in_new_window(driver):
 
     time.sleep(3)
 
+
+def there_is_window_other_than():
+    pass

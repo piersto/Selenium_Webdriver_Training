@@ -28,7 +28,7 @@ def test_add_product(driver):
     driver.find_element_by_css_selector("a[href$='/en/checkout']").click()
 
     buttons = driver.find_elements_by_css_selector("[name='remove_cart_item']")
-    for button in range(len(buttons)):
+    for i in range(len(buttons)):
         wait = WebDriverWait(driver, 10)  # seconds
         button = wait.until(EC.visibility_of_element_located((By.NAME, "remove_cart_item")))
         button.click()

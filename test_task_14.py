@@ -20,6 +20,7 @@ def test_links_are_open_in_new_window(driver):
     driver.find_element_by_name("password").send_keys('admin')
     driver.find_element_by_name("login").click()
     WebDriverWait(driver, 10).until(EC.title_is('My Store'))
+    wait = WebDriverWait(driver, 10)  # seconds
 
     driver.get('http://localhost/litecart/admin/?app=countries&doc=countries')
 
@@ -43,5 +44,9 @@ def test_links_are_open_in_new_window(driver):
     time.sleep(3)
 
 
-def there_is_window_other_than():
-    pass
+def there_is_window_other_than(driver, old_windows):
+    new_windows = driver.window_handles
+    wait = WebDriverWait(driver, 60)  # seconds
+    wait.until(lambda d: len(old_windows) < len(new_windows))
+    new_window = old_windows - new_windows
+    return new_window

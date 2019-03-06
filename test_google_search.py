@@ -22,8 +22,16 @@ def driver(request):
 
 
 def test_example(driver):
+
+    for l in driver.get_log("browser"):
+        print(l)
+
     driver.get("http://google.com/")
     driver.find_element_by_name("q").send_keys('webdriver')
+    driver.get_screenshot_as_file('screen1.png')
+
     driver.implicitly_wait(30)
     driver.find_element_by_name("btnK").click()
+    driver.get_screenshot_as_file('screen2.png')
+
     WebDriverWait(driver, 10).until(EC.title_is('webdriver - Google Search'))

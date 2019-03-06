@@ -2,11 +2,21 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.events import EventFiringWebDriver, AbstractEventListener
+
+
+class MyListener(AbstractEventListener):
+    def before_find(self, by, value, driver):
+        print(by, value)
+    def after_find(self, by, value, driver):
+        print(by, value, "found")
+    def on_exception(self, exception, driver):
+        print(exception)
 
 
 @pytest.fixture
 def driver(request):
-    wd = webdriver.Chrome()
+    wd = EventFiringWebDriver(webdriver.Chrome(), MyListener())
     request.addfinalizer(wd.quit)
     return wd
 

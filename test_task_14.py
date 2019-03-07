@@ -33,9 +33,11 @@ def test_links_are_open_in_new_window(driver):
     # кликаем кнопку, которая открывает новое окно
     driver.find_element_by_css_selector("a[href='http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2']").click()
     # ждем появления нового окна, с новым идентификатором
-    new_window = wait.until(there_is_window_other_than(old_windows))
+    new_window = wait.until(there_is_window_other_than(driver, old_windows))
     # переключаемся в новое окно
     driver.switch_to.window(new_window)
+
+    time.sleep(3)
     # закрываем его
     driver.close()
     # и возвращаемся в исходное окно
@@ -48,5 +50,5 @@ def there_is_window_other_than(driver, old_windows):
     new_windows = driver.window_handles
     wait = WebDriverWait(driver, 60)  # seconds
     wait.until(lambda d: len(old_windows) < len(new_windows))
-    new_window = old_windows - new_windows
-    return new_window
+    #new_window = old_windows - new_windows
+    #return new_window

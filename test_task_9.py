@@ -4,6 +4,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
+from selenium.common.exceptions import NoSuchElementException
 
 
 @pytest.fixture
@@ -26,16 +27,30 @@ def test_areas_are_sorted(driver):
 
     rows = driver.find_elements_by_css_selector("tr[class='row']")
     for i in range(len(rows)):
-        #row = rows[i]
-        zone_text = driver.find_elements_by_css_selector("td:nth-child(6)")[i].text
-        print(zone_text)
+        zone_text = rows[i].find_element_by_css_selector("td:nth-child(6)").text
         if zone_text != "0":
-            driver.find_element_by_css_selector('td:nth-child(5) > a').click()
-        else:
-            pass
-    wait = WebDriverWait(driver, 10)  # seconds
-    wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "h1")))
-    driver.find_element_by_css_selector("li a[href$='countries&doc=countries']").click()
+            rows[i].find_element_by_css_selector('td:nth-child(5) > a').click()
+            time.sleep(5)
+
+            wait = WebDriverWait(driver, 10)  # seconds
+            wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "h1")))
+
+            zones_list = []
+            for zone in driver.find_elements_by_css_selector('td:nth-child(3) > input[type="hidden"]'):
+                try:
+                    name = zone.get_attribute('value')
+                    zones_list.append(name)
+
+                except NoSuchElementException:
+                    pass  # не найден ну и ладно
+            assert zones_list == sorted(zones_list)
+
+            print(zones_list)
+            driver.find_element_by_css_selector("li a[href$='countries&doc=countries']").click()
+
+            rows = driver.find_elements_by_css_selector("tr[class='row']")
+
+
 
 
 

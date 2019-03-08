@@ -2,9 +2,6 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-import time
-from selenium.common.exceptions import NoSuchElementException
 
 
 @pytest.fixture
@@ -30,25 +27,30 @@ def test_links_are_open_in_new_window(driver):
     main_window = driver.current_window_handle
     # запоминаем идентификаторы уже открытых окон
     old_windows = driver.window_handles
-    # кликаем кнопку, которая открывает новое окно
-    driver.find_element_by_css_selector("a[href='http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2']").click()
-    # ждем появления нового окна, с новым идентификатором
-    new_window = wait.until(there_is_window_other_than(driver, old_windows))
-    # переключаемся в новое окно
-    driver.switch_to.window(new_window)
 
-    time.sleep(3)
-    # закрываем его
-    driver.close()
-    # и возвращаемся в исходное окно
-    driver.switch_to.window(main_window)
+    for i in driver.find_elements_by_css_selector('i[class = "fa fa-external-link"]'):
+        # кликаем кнопку, которая открывает новое окно
+        i.click()
+        # ждем появления нового окна, с новым идентификатором
+        wait.until(EC.new_window_is_opened(old_windows))
+        # запоминаем новые окна
+        new_windows = driver.window_handles
+        # вычленяем новое окно
+        result = list(set(new_windows) - set(old_windows))
+        new_window = result[0]
+        # переключаемся в новое окно
+        driver.switch_to.window(new_window)
+        # закрываем его
+        driver.close()
+        # и возвращаемся в исходное окно
+        driver.switch_to_window(main_window)
 
-    time.sleep(3)
 
 
-def there_is_window_other_than(driver, old_windows):
+
+"""def there_is_window_other_than(driver, old_windows):
     new_windows = driver.window_handles
     wait = WebDriverWait(driver, 60)  # seconds
     wait.until(lambda d: len(old_windows) < len(new_windows))
     #new_window = old_windows - new_windows
-    #return new_window
+    #return new_window"""

@@ -26,10 +26,11 @@ def test_areas_are_sorted(driver):
 
     rows = driver.find_elements_by_css_selector("tr[class='row']")
     for i in range(len(rows)):
-        index = len(rows)
-        zone_text = driver.find_elements_by_css_selector("td:nth-child(6)")[index].text
+        #row = rows[i]
+        zone_text = driver.find_elements_by_css_selector("td:nth-child(6)")[i].text
+        print(zone_text)
         if zone_text != "0":
-            driver.find_elements_by_css_selector('td:nth-child(5) > a')[index].click(index)
+            driver.find_element_by_css_selector('td:nth-child(5) > a').click()
         else:
             pass
     wait = WebDriverWait(driver, 10)  # seconds

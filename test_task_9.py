@@ -37,7 +37,7 @@ def test_areas_are_sorted(driver):
                     zones_list.append(name)
             assert zones_list == sorted(zones_list)
             print(zones_list)
-            
+
             driver.find_element_by_css_selector("li a[href$='countries&doc=countries']").click()
 
             rows = driver.find_elements_by_css_selector("tr[class='row']")

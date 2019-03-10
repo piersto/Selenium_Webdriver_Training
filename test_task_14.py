@@ -44,13 +44,3 @@ def test_links_are_open_in_new_window(driver):
         driver.close()
         # и возвращаемся в исходное окно
         driver.switch_to_window(main_window)
-
-
-
-
-"""def there_is_window_other_than(driver, old_windows):
-    new_windows = driver.window_handles
-    wait = WebDriverWait(driver, 60)  # seconds
-    wait.until(lambda d: len(old_windows) < len(new_windows))
-    #new_window = old_windows - new_windows
-    #return new_window"""

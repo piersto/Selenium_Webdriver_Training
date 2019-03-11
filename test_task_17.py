@@ -2,7 +2,6 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
 
 
 @pytest.fixture
@@ -20,7 +19,6 @@ def test_links_are_open_in_new_window(driver):
     WebDriverWait(driver, 10).until(EC.title_is('My Store'))
 
     driver.get('http://localhost/litecart/admin/?app=catalog&doc=catalog&category_id=1')
-    time.sleep(3)
     product_links = driver.find_elements_by_css_selector("tr > td:nth-child(5) a[href*='product_id=']")
     for i in range(len(product_links)):
         product_links[i].click()

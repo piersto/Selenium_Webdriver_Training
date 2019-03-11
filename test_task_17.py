@@ -21,4 +21,4 @@ def test_links_are_open_in_new_window(driver):
 
     driver.get('http://localhost/litecart/admin/?app=catalog&doc=catalog&category_id=1')
     time.sleep(3)
-    driver.find_element_by_css_selector("td:nth-child(2) a[href$='product_id=']").click()
+    driver.find_element_by_css_selector("tr > td:nth-child(5) a[href*='product_id=']").click()

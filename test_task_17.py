@@ -22,8 +22,11 @@ def test_links_are_open_in_new_window(driver):
     product_links = driver.find_elements_by_css_selector("tr > td:nth-child(5) a[href*='product_id=']")
     for i in range(len(product_links)):
         product_links[i].click()
-        for l in driver.get_log("browser"):
-            print(l)
+
+        list_log = driver.get_log("browser")
+        assert len(list_log) == 0
+        print(list_log)
+
         driver.get('http://localhost/litecart/admin/?app=catalog&doc=catalog&category_id=1')
         product_links = driver.find_elements_by_css_selector("tr > td:nth-child(5) a[href*='product_id=']")
 
